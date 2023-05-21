@@ -9,6 +9,7 @@ namespace Application.Controllers
     public class UserController : ControllerBase
     {
         private readonly UsersTable _usersTable;
+        private readonly ProfilesTable _profiles;
 
         public UserController(UsersTable usersTable)
         {
@@ -32,9 +33,9 @@ namespace Application.Controllers
 
         [HttpGet]
         [Route("get-by-id")]
-        public User GetUserById(int userId)
+        public string GetUserById(int userId)
         {
-            User? findedUser = _usersTable.GetUser(userId);
+            string? findedUser = _usersTable.GetUser(userId);
 
             return findedUser;
         }
@@ -62,6 +63,24 @@ namespace Application.Controllers
             {
                 return false;
             }
+        }
+
+        [HttpGet]
+        [Route("check-gender")]
+        public bool CheckGender(int userId)
+        {
+            bool findedUser = _profiles.GetGender(userId);
+
+            return findedUser;
+        }
+
+        [HttpGet]
+        [Route("get-user-id")]
+        public int CheckID(string username)
+        {
+            int findedUser = _usersTable.GetUserId(username);
+
+            return findedUser;
         }
     }
 }

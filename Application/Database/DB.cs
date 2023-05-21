@@ -4,18 +4,15 @@ namespace Application.Database;
 
 public class DB
 {
-
     private readonly string connectionString;
-
     private MySqlConnection connection;
 
-    public DB()
+    public DB(string server, int port, string username, string password, string database)
     {
-        connectionString = "server=db4free.net;port=3306;username=testdbqwe;password=testdbqwetestdbqwe;database=matchmaker";
-
+        connectionString = $"server={server};port={port};username={username};password={password};database={database}";
     }
 
-    public void OpenConnection()
+    public MySqlConnection OpenConnection()
     {
         if (connection == null)
         {
@@ -26,6 +23,8 @@ public class DB
         {
             connection.Open();
         }
+
+        return connection;
     }
 
     public void CloseConnection()
@@ -41,16 +40,13 @@ public class DB
         return connection;
     }
 
-
-
     public void ExecuteNonQuery(string query)
     {
         try
         {
+            CloseConnection();
             OpenConnection();
-
             MySqlCommand command = new MySqlCommand(query, connection);
-
             command.ExecuteNonQuery();
         }
         catch (MySqlException ex)
@@ -67,47 +63,38 @@ public class DB
     {
         try
         {
+            CloseConnection();
             OpenConnection();
-
             MySqlCommand command = new MySqlCommand(query, connection);
-
             return command.ExecuteReader();
-
         }
         catch (MySqlException ex)
         {
-
             Console.WriteLine("Ошибка выполнения запроса: " + ex.Message);
-
             return null;
         }
     }
 
     public object ExecuteScalar(string query)
     {
-
         try
         {
+            CloseConnection();
             OpenConnection();
-
             MySqlCommand command = new MySqlCommand(query, connection);
-
             return command.ExecuteScalar();
-
         }
         catch (MySqlException ex)
         {
             Console.WriteLine("Ошибка выполнения запроса: " + ex.Message);
-
             return null;
         }
         finally
         {
             CloseConnection();
-
         }
-    }
 
+    }
     static public void CloseDataReader(MySqlDataReader reader)
     {
         if (reader != null && !reader.IsClosed)
@@ -115,4 +102,6 @@ public class DB
             reader.Close();
         }
     }
+
 }
+
