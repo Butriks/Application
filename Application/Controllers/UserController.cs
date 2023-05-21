@@ -82,5 +82,14 @@ namespace Application.Controllers
 
             return findedUser;
         }
+
+        [HttpGet]
+        [Route("check-user-pass")]
+        public bool CheckPass(string pas, int id)
+        {
+            bool findedUser = _usersTable.CheckPassword(pas, id);
+
+            return findedUser;
+        }
     }
 }
