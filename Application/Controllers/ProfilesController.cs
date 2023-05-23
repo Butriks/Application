@@ -30,7 +30,7 @@ namespace Application.Controllers
             string str = Convert.ToBase64String(human.photo);
             byte[] newByteArray = Convert.FromBase64String(str);
 
-            string result = $"$${human.name}$$ $${human.information}$$ $${human.age}$$ $${str}$$";
+            string result = $"$${human.name}$${human.information}$${human.age}$${str}$$";
 
             return result;
         }
