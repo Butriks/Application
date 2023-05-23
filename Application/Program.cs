@@ -10,6 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<UsersTable>();
+builder.Services.AddSingleton<ProfilesTable>();
 
 string server = "db4free.net";
 int port = 3306;

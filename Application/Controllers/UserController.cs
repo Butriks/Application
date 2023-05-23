@@ -9,12 +9,12 @@ namespace Application.Controllers
     public class UserController : ControllerBase
     {
         private readonly UsersTable _usersTable;
-        private readonly ProfilesTable _profiles;
+        
 
-        public UserController(UsersTable usersTable, ProfilesTable p)
+        public UserController(UsersTable usersTable)
         {
             _usersTable = usersTable;
-            _profiles = p;
+            
         }
 
         [HttpGet]
@@ -70,9 +70,9 @@ namespace Application.Controllers
         [Route("check-gender")]
         public bool CheckGender(int userId)
         {
-            bool findedUser = _profiles.GetGender(userId);
+            //bool findedUser = _profiles.GetGender(userId);
 
-            return findedUser;
+            return true;
         }
 
         [HttpGet]
@@ -93,17 +93,6 @@ namespace Application.Controllers
             return findedUser;
         }
 
-        [HttpGet]
-        [Route("get-user-info")]
-        public string get_info(int id)
-        {
-            Human human = new Human();
-            human.photo = _profiles.GetPhoto(id);
-            human.name = _profiles.GetFirstName(id);
-            human.information = _profiles.GetInterests(id);
-            human.age = _profiles.GetAge(id);
-
-            return "azazaz";
-        }
+        
     }
 }
