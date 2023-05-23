@@ -11,9 +11,10 @@ namespace Application.Controllers
         private readonly UsersTable _usersTable;
         private readonly ProfilesTable _profiles;
 
-        public UserController(UsersTable usersTable)
+        public UserController(UsersTable usersTable, ProfilesTable p)
         {
             _usersTable = usersTable;
+            _profiles = p;
         }
 
         [HttpGet]
@@ -90,6 +91,19 @@ namespace Application.Controllers
             bool findedUser = _usersTable.CheckPassword(pas, id);
 
             return findedUser;
+        }
+
+        [HttpGet]
+        [Route("get-user-info")]
+        public string get_info(int id)
+        {
+            Human human = new Human();
+            human.photo = _profiles.GetPhoto(id);
+            human.name = _profiles.GetFirstName(id);
+            human.information = _profiles.GetInterests(id);
+            human.age = _profiles.GetAge(id);
+
+            return "azazaz";
         }
     }
 }
