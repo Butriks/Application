@@ -9,12 +9,12 @@ namespace Application.Controllers
     public class UserController : ControllerBase
     {
         private readonly UsersTable _usersTable;
-        
+
 
         public UserController(UsersTable usersTable)
         {
             _usersTable = usersTable;
-            
+
         }
 
         [HttpGet]
@@ -65,7 +65,7 @@ namespace Application.Controllers
             }
         }
 
-        
+
 
         [HttpGet]
         [Route("get-user-id")]
@@ -85,6 +85,38 @@ namespace Application.Controllers
             return findedUser;
         }
 
-        
+        /*public string GetAllUsers()
+    {
+        string query = "SELECT * FROM users";
+        MySqlDataReader reader = db.ExecuteReader(query);
+
+        StringBuilder sb = new StringBuilder();
+
+
+        while (reader.Read())
+        {
+            int userId = reader.GetInt32(0);
+            string username = reader.GetString(1);
+            string email = reader.GetString(2);
+            //string password = reader.GetString(3);
+
+            //sb.AppendLine($"User ID: {userId}, Username: {username}, Email: {email}, HeshPass: {password}");
+            sb.AppendLine($"User ID: {userId}, Username: {username}, Email: {email}");
+        }
+
+        DB.CloseDataReader(reader);
+
+        return sb.ToString();
+    }*/
+
+        [HttpGet]
+        [Route("get-all-users")]
+        public string GetAll()
+        {
+            List<int> result = _usersTable.GetAllUsersId();
+            string resultString = string.Join(", ", result);
+            return resultString;
+
+        }
     }
 }

@@ -27,12 +27,18 @@ namespace Application.Controllers
             human.information = _profiles.GetInterests(id);
             human.age = _profiles.GetAge(id);
 
-            string str = Convert.ToBase64String(human.photo);
-            byte[] newByteArray = Convert.FromBase64String(str);
+            try
+            {   string str = Convert.ToBase64String(human.photo);
+                byte[] newByteArray = Convert.FromBase64String(str);
 
-            string result = $"$${human.name}$${human.information}$${human.age}$${str}$$";
+                string result = $"$${human.name}$${human.information}$${human.age}$${str}$$";
 
-            return result;
+                return result;
+            }
+            catch {
+                return "-1";
+            }
+            
         }
 
         [HttpGet]
@@ -40,6 +46,26 @@ namespace Application.Controllers
         public bool CheckGender(int userId)
         {
             bool findedUser = _profiles.GetGender(userId);
+
+            return true;
+        }
+
+        /*public bool CheckExistUser(int userId)
+        {
+            string query = $"SELECT COUNT(*) FROM profiles WHERE user_id = {userId}";
+            int count = Convert.ToInt32(db.ExecuteScalar(query));
+            if (count == 0)
+            {
+                return false;
+            }
+            else { return true; }
+        }*/
+
+        [HttpGet]
+        [Route("check-exist-user")]
+        public bool CheckExist(int userId)
+        {
+            bool findedUser = _profiles.CheckExistUser(userId);
 
             return true;
         }
