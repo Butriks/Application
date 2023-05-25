@@ -52,12 +52,11 @@ namespace Application.Controllers
 
         [HttpPost]
         [Route("add-user")]
-        public bool AddUser(string username, string email, string password)
+        public bool AddUserA(string username, string email, string password)
         {
             try
             {
                 _usersTable.AddUser(username, email, password);
-
                 return true;
             }
             catch (Exception)
@@ -66,14 +65,7 @@ namespace Application.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("check-gender")]
-        public bool CheckGender(int userId)
-        {
-            //bool findedUser = _profiles.GetGender(userId);
-
-            return true;
-        }
+        
 
         [HttpGet]
         [Route("get-user-id")]

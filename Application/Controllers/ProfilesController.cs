@@ -35,5 +35,14 @@ namespace Application.Controllers
             return result;
         }
 
+        [HttpGet]
+        [Route("check-gender")]
+        public bool CheckGender(int userId)
+        {
+            bool findedUser = _profiles.GetGender(userId);
+
+            return true;
+        }
+
     }
 }
